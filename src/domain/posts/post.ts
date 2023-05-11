@@ -2,10 +2,9 @@ export type PostID = number;
 
 export type AuthorAttributesData = {
   name: string;
-  created_by: number;
-  updated_by: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: number;
+  updatedAt: number;
+  publishedAt: string;
 };
 
 export type PostAuthor = {
@@ -17,8 +16,8 @@ export type PostAuthor = {
 
 export type CategoryAttributesData = {
   name: string;
-  created_by: number;
-  updated_by: number;
+  createdAt: number;
+  updatedAt: number;
   publishedAt: string;
 };
 
@@ -27,13 +26,6 @@ export type PostCategory = {
     id: PostID;
     attributes: CategoryAttributesData;
   };
-};
-
-export type PostCreatedBy = {
-  id: PostID;
-  firstname: string;
-  lastname: string;
-  username: null;
 };
 
 export type PostCoverFormat = {
@@ -52,21 +44,37 @@ export type PostCoverFormat = {
   };
 };
 
-export type PostCover = PostCoverFormat & {
-  id: PostID;
-  alternativeText: string;
-  caption: string;
-  previewUrl: null;
-  provider: string;
-  created_by: number;
-  updated_by: number;
-  created_at: string;
-  updated_at: string;
+export type PostCoverAttributes = {
+  name: string;
+  alternativeText: null;
+  caption: null;
+  width: number;
+  height: number;
   formats: {
     thumbnail: PostCoverFormat;
     small: PostCoverFormat;
     medium: PostCoverFormat;
     large: PostCoverFormat;
+  };
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: null;
+  provider: string;
+  provider_metadata: {
+    public_id: string;
+    resource_type: string;
+  };
+  created_at: string;
+  updated_at: string;
+};
+
+export type PostCover = {
+  data: {
+    id: PostID;
+    attributes: PostCoverAttributes;
   };
 };
 
@@ -74,13 +82,12 @@ export type PostAttributesData = {
   title: string;
   content: string;
   slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  cover: PostCover;
   author: PostAuthor;
   category: PostCategory;
-  created_by: PostCreatedBy;
-  updated_by: PostCreatedBy;
-  created_at: string;
-  updated_at: string;
-  cover: PostCover;
 };
 
 export type PostData = {
