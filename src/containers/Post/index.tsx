@@ -1,12 +1,14 @@
-import { MainContainer } from '@/components/MainContainer';
+import { MainContainer } from '../../components/MainContainer';
 import { PostData } from '../../domain/posts/post';
 import { Header } from '../../components/Header';
-import { useEffect, useState } from 'react';
-import { markdownToHtml } from '../../utils/markdown-to-html';
 import { Footer } from '../../components/Footer';
 import { Heading } from '../../components/Heading';
 import { PostCover } from '../../components/PostCover';
-import { PostDetails } from '@/components/PostDetails';
+import { PostDetails } from '../../components/PostDetails';
+import { PostContainer } from '../../components/PostContainer';
+import { markdownToHtml } from '../../utils/markdown-to-html';
+import { useEffect, useState } from 'react';
+import { Comments } from '@/Comments';
 
 export type PostProps = {
   post: PostData;
@@ -17,12 +19,12 @@ export const Post = ({ post }: PostProps) => {
 
   useEffect(() => {
     const convertMarkdownToHtml = async () => {
-      const html = await markdownToHtml(post.attributes.content);
-      setHtmlContent(html);
+      const content = await markdownToHtml(post.attributes.content);
+      setHtmlContent(content);
     };
 
     convertMarkdownToHtml();
-  }, [post]);
+  }, [post.attributes.content]);
 
   return (
     <>
@@ -38,9 +40,9 @@ export const Post = ({ post }: PostProps) => {
           category={post.attributes.category.data.attributes.name}
           date={post.attributes.createdAt}
         />
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+        <PostContainer content={htmlContent} />
+        <Comments title={post.attributes.title} slug={post.attributes.slug} />
       </MainContainer>
-
       <Footer />
     </>
   );
