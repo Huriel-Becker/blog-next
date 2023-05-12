@@ -9,6 +9,9 @@ import { PostContainer } from '../../components/PostContainer';
 import { markdownToHtml } from '../../utils/markdown-to-html';
 import { useEffect, useState } from 'react';
 import { Comments } from '@/Comments';
+import Head from 'next/head';
+import { SITE_NAME } from '@/config/app-config';
+import { removeHtml } from '@/utils/remove-html';
 
 export type PostProps = {
   post: PostData;
@@ -28,6 +31,16 @@ export const Post = ({ post }: PostProps) => {
 
   return (
     <>
+      <Head>
+        <title>
+          {post.attributes.title} - {SITE_NAME}
+        </title>
+        <meta
+          name="description"
+          content={removeHtml(post.attributes.content).slice(0, 150)}
+        />
+      </Head>
+
       <Header />
       <MainContainer>
         <Heading>{post.attributes.title}</Heading>
