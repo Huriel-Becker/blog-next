@@ -8,7 +8,7 @@ import { PostDetails } from '../../components/PostDetails';
 import { PostContainer } from '../../components/PostContainer';
 import { markdownToHtml } from '../../utils/markdown-to-html';
 import { useEffect, useState } from 'react';
-import { Comments } from '@/Comments';
+import { Comments } from '../../components/Comments';
 import Head from 'next/head';
 import { SITE_NAME } from '@/config/app-config';
 import { removeHtml } from '@/utils/remove-html';
